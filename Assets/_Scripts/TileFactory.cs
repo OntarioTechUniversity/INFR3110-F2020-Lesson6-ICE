@@ -24,7 +24,7 @@ public class TileFactory
         return m_instance;
     }
 
-    public GameObject CreateTile(Vector3 location)
+    public GameObject CreateTile(Vector3 location = new Vector3())
     {
         var newTile = MonoBehaviour.Instantiate(tile, location, Quaternion.identity);
         newTile.transform.parent = gameController.transform;

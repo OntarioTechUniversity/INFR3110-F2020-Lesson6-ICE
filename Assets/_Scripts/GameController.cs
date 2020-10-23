@@ -12,7 +12,7 @@ public class GameController : MonoBehaviour
     [Header("Tile Layout")]
     public int MaxTiles;
     public float Threshold;
-    public List<GameObject> Tiles;
+    //public List<GameObject> Tiles;
     public GameObject farthestTile;
 
     [Header("Player Related")]
@@ -31,7 +31,7 @@ public class GameController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Tiles = new List<GameObject>();
+        //Tiles = new List<GameObject>();
         _Reset();
     }
 
@@ -40,14 +40,14 @@ public class GameController : MonoBehaviour
         var key = new_location.x + "" + new_location.y + "" + new_location.z;
         if (!m_tilePosition.ContainsKey(key))
         {
-            if (Tiles.Count <= MaxTiles - 1)
-            {
-                var newTile = TileFactory.Instance().CreateTile(new_location);
-                Tiles.Add(newTile);
-                m_tilePosition[key] = true;
+            //if (Tiles.Count <= MaxTiles - 1)
+            //{
+            //    var newTile = TileFactory.Instance().CreateTile(new_location);
+            //    Tiles.Add(newTile);
+            //    m_tilePosition[key] = true;
 
-                return true;
-            }
+            //    return true;
+            //}
         }
 
         return false;
@@ -55,7 +55,7 @@ public class GameController : MonoBehaviour
 
     public int TileSize()
     {
-        return Tiles.Count;
+        return 0; // Tiles.Count;
     }
 
     void Update()
@@ -75,39 +75,39 @@ public class GameController : MonoBehaviour
             _ToggleMiniMap();
         }
 
-        TileCount.text = "Tile Count: " + Tiles.Count.ToString();
+        TileCount.text = "Tile Count: " + TileSize().ToString();
     }
 
     IEnumerator ThresholdCheck()
     {
         yield return new WaitForSeconds(5.0f);
-        if ((float)Tiles.Count < ((float)MaxTiles * Threshold))
-        {
-            _Reset();
-        }
+        //if ((float)Tiles.Count < ((float)MaxTiles * Threshold))
+        //{
+        //    _Reset();
+        //}
 
         _FindFarthestTile();
     }
 
     private void _Reset()
     {
-        if (Tiles.Count > 0)
-        {
-            Tiles.Clear();
-            m_tilePosition.Clear();
-            foreach (Transform child in transform)
-            {
-                Destroy(child.gameObject);
-            }
-        }
+        //if (Tiles.Count > 0)
+        //{
+        //    Tiles.Clear();
+        //    m_tilePosition.Clear();
+        //    foreach (Transform child in transform)
+        //    {
+        //        Destroy(child.gameObject);
+        //    }
+        //}
 
         player.gameObject.GetComponent<CharacterController>().enabled = false;
         player.transform.position = playerSpawnPoint.position;
         player.transform.rotation = playerSpawnPoint.rotation;
         player.gameObject.GetComponent<CharacterController>().enabled = true;
-        AddTile(Vector3.zero);
+        //AddTile(Vector3.zero);
 
-        StartCoroutine(ThresholdCheck());
+        //StartCoroutine(ThresholdCheck());
     }
 
     private void _Quit()
@@ -122,15 +122,15 @@ public class GameController : MonoBehaviour
     private void _FindFarthestTile()
     {
         float maxDistance = 0.0f;
-        foreach (var tile in Tiles)
-        {
-            var distance = Vector3.Distance(player.transform.position, tile.transform.position);
-            maxDistance = Mathf.Max(distance, maxDistance);
-            if (distance == maxDistance)
-            {
-                farthestTile = tile;
-            }
-        }
+        //foreach (var tile in Tiles)
+        //{
+        //    var distance = Vector3.Distance(player.transform.position, tile.transform.position);
+        //    maxDistance = Mathf.Max(distance, maxDistance);
+        //    if (distance == maxDistance)
+        //    {
+        //        farthestTile = tile;
+        //    }
+        //}
 
         enemySpawnPoint.position = new Vector3(farthestTile.transform.position.x, 100.0f, farthestTile.transform.position.z);
         enemy.transform.position = enemySpawnPoint.transform.position;
