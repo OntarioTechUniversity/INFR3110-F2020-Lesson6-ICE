@@ -12,7 +12,7 @@ public class TileManager : MonoBehaviour
 
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         // Initialize Tile Pool
         m_TilePool = new Queue<GameObject>();
